@@ -4,16 +4,13 @@ import keras
 import time
 import datetime
 
-def test():
-    job_start_time = time.strftime("%Y%m%d_%H%M%S")
-
 def main():
     my_data = utils.Nietzche_Data()
     mdl = utils.sl_lstm_model(my_data.chars, my_data.maxlen)
-    num_epochs = 60
-    data_size = 10000
+    num_epochs = 10
+    data_size = 1000
     temperature = [0.2, 0.5, 1.0, 1.2]
-    create_str_len = 400
+    create_str_len = 100
     job_start_time = time.strftime("%Y%m%d_%H%M%S")
     data_directory = "data_" + job_start_time
     utils.nice_mk_dir(data_directory)
@@ -80,5 +77,4 @@ def main():
     log_file.close()
 
 if __name__ == "__main__":
-    #test() 
     main()

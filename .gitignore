@@ -6,3 +6,6 @@ env
 
 #Jupyter Notebook
 .ipynb_checkpoints
+
+#Data directories from output
+data*

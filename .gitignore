@@ -9,3 +9,5 @@ env
 
 #Data directories from output
 data*
+
+log*

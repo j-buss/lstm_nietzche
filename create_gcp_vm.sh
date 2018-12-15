@@ -18,7 +18,7 @@ else
 	--maintenance-policy=MIGRATE \
 	--service-account=548848141143-compute@developer.gserviceaccount.com \
 	--scopes=https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/trace.append,https://www.googleapis.com/auth/devstorage.read_write \
-       	--image=debian-9-stretch-v20181113 \
+       	--image-family=debian-9 \
 	--image-project=debian-cloud \
 	--boot-disk-size=10GB \
 	--boot-disk-type=pd-standard \

@@ -9,11 +9,11 @@ import multiprocessing
 def main():
     my_data = utils.Nietzche_Data()
     mdl = utils.sl_lstm_model(my_data.chars, my_data.maxlen)
-    num_epochs = 2
+    num_epochs = 60
     data_size = my_data.len_sentences
     #data_size = 100
     temperature = [0.2, 0.5, 1.0, 1.2]
-    create_str_len = 10
+    create_str_len = 400
     job_start_time = time.strftime("%Y%m%d_%H%M%S")
     data_directory = "data_" + job_start_time
     utils.nice_mk_dir(data_directory)

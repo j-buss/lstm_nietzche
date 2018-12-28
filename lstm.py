@@ -10,17 +10,18 @@ def main():
     my_data = utils.Nietzche_Data()
     mdl = utils.sl_lstm_model(my_data.chars, my_data.maxlen)
     num_epochs = 2
-    data_size = 1000
+    data_size = 100
     temperature = [0.2, 0.5, 1.0, 1.2]
     create_str_len = 10
     job_start_time = time.strftime("%Y%m%d_%H%M%S")
     data_directory = "data_" + job_start_time
     utils.nice_mk_dir(data_directory)
     Hardware_File = open(data_directory + "/hardware.txt","w")
-    Hardware_File.write("CPU Count: " + round(multiprocessing.cpu_count() ,2))
+    Hardware_File.write("CPU Count: " + str(round(multiprocessing.cpu_count() ,2)))
     mem_bytes = os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES')  
     mem_gib = mem_bytes/(1024.**3) 
-    Hardware_File.write("Memory: " + round(mem_gib,2))
+    Hardware_File.write("\nMemory: " + str(round(mem_gib,2)))
+    Hardware_File.close()
     Output_File = open(data_directory + "/output_" + job_start_time + ".txt","w")
     Output_File.write("=====================Begin: " + job_start_time + "======================\n")
     log_file = open(data_directory + "/logfile_" + job_start_time + ".csv","w")

@@ -1,7 +1,7 @@
 #!/bin/bash
 echo Script name: $0
 echo $# arguments
-if [ $# -ne 1 ]; then
+if [ $# -ne 4 ]; then
         echo "illegal number of parameters"
         echo "Argument: project_name zone service_account startup_script"
 else

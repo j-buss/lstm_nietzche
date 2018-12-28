@@ -17,7 +17,7 @@ class Nietzche_Data():
         self.text = self.get_data()
         self.chars = self.get_chars()
         self.char_indices = self.get_char_indices()
-        self.x, self.y = self.prepare_x_y()
+        self.x, self.y, self.len_sentences = self.prepare_x_y()
 
     def get_data(self):
       """Function to obtain the Nietzche text"""
@@ -55,7 +55,7 @@ class Nietzche_Data():
           for t, char in enumerate(sentence):
               x[i, t, self.char_indices[char]] = 1
           y[i, self.char_indices[next_chars[i]]] = 1
-      return x, y
+      return x, y, len(sentences)
 
     def return_data(self):
       return self.x, self.y

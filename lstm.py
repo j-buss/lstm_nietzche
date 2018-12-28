@@ -10,17 +10,17 @@ def main():
     my_data = utils.Nietzche_Data()
     mdl = utils.sl_lstm_model(my_data.chars, my_data.maxlen)
     num_epochs = 2
-    data_size = len(my_data.chars)
+    data_size = my_data.len_sentences
     #data_size = 100
     temperature = [0.2, 0.5, 1.0, 1.2]
     create_str_len = 10
-    Config_File = open(data_directory + "/config.txt","w")
-    Config_File.write("Number of Epochs: " + str(num_epochs))
-    Config_File.write("\nData Size: " + str(data_size))
-    Config_File.write("\nString Length to create: " + str(create_str_len)))
     job_start_time = time.strftime("%Y%m%d_%H%M%S")
     data_directory = "data_" + job_start_time
     utils.nice_mk_dir(data_directory)
+    Config_File = open(data_directory + "/config.txt","w")
+    Config_File.write("Number of Epochs: " + str(num_epochs))
+    Config_File.write("\nData Size: " + str(data_size))
+    Config_File.write("\nString Length to create: " + str(create_str_len))
     Config_File.write("\nCPU Count: " + str(round(multiprocessing.cpu_count() ,2)))
     mem_bytes = os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES')  
     mem_gib = mem_bytes/(1024.**3) 

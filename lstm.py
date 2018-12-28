@@ -3,6 +3,8 @@ import csv
 import keras
 import time
 import datetime
+import os
+import multiprocessing
 
 def main():
     my_data = utils.Nietzche_Data()
@@ -14,6 +16,11 @@ def main():
     job_start_time = time.strftime("%Y%m%d_%H%M%S")
     data_directory = "data_" + job_start_time
     utils.nice_mk_dir(data_directory)
+    Hardware_File = open(data_directory + "/hardware.txt","w")
+    Hardware_File.write("CPU Count: " + round(multiprocessing.cpu_count() ,2))
+    mem_bytes = os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES')  
+    mem_gib = mem_bytes/(1024.**3) 
+    Hardware_File.write("Memory: " + round(mem_gib,2))
     Output_File = open(data_directory + "/output_" + job_start_time + ".txt","w")
     Output_File.write("=====================Begin: " + job_start_time + "======================\n")
     log_file = open(data_directory + "/logfile_" + job_start_time + ".csv","w")

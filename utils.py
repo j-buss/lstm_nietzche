@@ -8,6 +8,15 @@ import datetime
 import time
 import csv
 import os
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(name)s:%(message)s')
+file_handler = logging.FileHandler('utils.log')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+
 
 class Nietzche_Data():
     """Define the class for obtaining and preparing Nietzche text data."""
@@ -48,7 +57,6 @@ class Nietzche_Data():
       for i in range(0, len(self.text) - self.maxlen, self.step):
         sentences.append(self.text[i: i + self.maxlen])
         next_chars.append(self.text[i + self.maxlen])
-      print('Number of sequences:', len(sentences))
       x = np.zeros((len(sentences), self.maxlen, len(self.chars)), dtype=np.bool)
       y = np.zeros((len(sentences), len(self.chars)), dtype=np.bool)
       for i, sentence in enumerate(sentences):
@@ -60,12 +68,10 @@ class Nietzche_Data():
     def return_data(self):
       return self.x, self.y
 
-def get_seed_text(text, maxlen, print_output=True):
+def get_seed_text(text, maxlen):
   """Return a text seed at random from original corpus"""
   start_index = random.randint(0, len(text) - maxlen - 1)
   seed_text = text[start_index: start_index + maxlen]
-  if print_output:
-    print('--- Generating with seed: "' + seed_text + '"')
   return seed_text
 
 def sl_lstm_model(chars, maxlen):
@@ -84,18 +90,18 @@ def sample(preds, temperature=1.0):
   probas = np.random.multinomial(1, preds, 1)
   return np.argmax(probas)
 
-def generate_text(model, maxlen, chars, char_indices, seed_text, temperature, create_str_len=400):
-  generated_text = seed_text
-  for i in range(create_str_len):
-    sampled = np.zeros((1, maxlen, len(chars)))
-    for t, char in enumerate(seed_text):
-      sampled[0, t, char_indices[char]] = 1.
-      preds = model.predict(sampled, verbose=0)[0]
-      next_index = sample(preds, temperature)
-      next_char = chars[next_index]
-      generated_text += next_char
-      generated_text = generated_text[1:]
-  return generated_text
+def generate_text(model, maxlen, chars, char_indices, seed_text, temperature, create_str_len):
+    generated_text=seed_text
+    for i in range(create_str_len):
+        sampled = np.zeros((1, maxlen, len(chars)))
+        for t, char in enumerate(seed_text):
+            sampled[0, t, char_indices[char]] = 1.
+        preds = model.predict(sampled, verbose = 0)[0]
+        next_index = sample(preds, temperature)
+        next_char = chars[next_index]
+        generated_text += next_char
+        generated_text = generated_text[1:]
+    return generated_text
 
 def nice_mk_dir(directory_path):
   try:

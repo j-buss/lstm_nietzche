@@ -9,5 +9,5 @@ sudo apt-get --yes --force-yes install python3-pip
 git clone https://github.com/j-buss/lstm_nietzche.git
 cd lstm_nietzche/
 pip3 install -r requirements.txt
-python3 lstm.py 
+python3 lstm.py -e 20
 gsutil cp -r output_data* gs://lstm-text-gen-001/

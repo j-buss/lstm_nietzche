@@ -33,12 +33,13 @@ def parse_args():
     #Define command line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("-e","--epochs", help="number of epochs to train",
-                    type=int)
+                    default=60, type=int)
     parser.add_argument("-s", "--sentences", help="number of sentences to train; default will use all",
                     type=int)
     parser.add_argument("-g", "--generate", help="length of text to generate",
-                    type=int)
-    parser.add_argument("-t", "--temperature", help="increase output verbosity")
+                    default=400, type=int)
+    parser.add_argument("-t", "--temperature", help="increase output verbosity",
+                    default=[0.2, 0.5, 0.8, 1.0])
     parser.add_argument("-v", "--verbose", help="increase output verbosity",
                     action="store_true")
     args = parser.parse_args()
@@ -73,6 +74,8 @@ def main(epochs=60, sentences=None, generate=400, temperature=[0.2, 0.5, 0.8, 1.
         else:
             config_logger.info('Optional argument {} has been set. The value is: {}'.format('Sentences', sentences))
             data_size = sentences
+    else:
+        data_size = my_data.len_sentences
     temperature = [0.2, 0.5, 1.0, 1.2]
     
     mem_bytes = os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES')

@@ -100,7 +100,7 @@ def generate_text(model, maxlen, chars, char_indices, seed_text, temperature, cr
         next_index = sample(preds, temperature)
         next_char = chars[next_index]
         generated_text += next_char
-    #    generated_text = generated_text[1:]
+        generated_text = generated_text[1:]
     return generated_text
 
 def nice_mk_dir(directory_path):

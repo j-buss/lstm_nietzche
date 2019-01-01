@@ -122,8 +122,8 @@ def main(epochs=60, sentences=None, generate=400, temperature=[0.2, 0.5, 0.8, 1.
             #Generate Seed Text
             seed_text_st = time.clock()
             seed_text = utils.get_seed_text(my_data.text, my_data.maxlen)
-            testing_logger.info('Seed Text: '.format(seed_text))
-            console_logger.info('Seed Text: '.format(seed_text))
+            testing_logger.info('Seed Text: {}'.format(seed_text))
+            console_logger.info('Seed Text: {}'.format(seed_text))
             seed_text_et = time.clock()
 
         

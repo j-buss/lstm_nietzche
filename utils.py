@@ -94,7 +94,7 @@ def generate_text(model, maxlen, chars, char_indices, seed_text, temperature, cr
     generated_text=seed_text
     for i in range(create_str_len):
         sampled = np.zeros((1, maxlen, len(chars)))
-        for t, char in enumerate(seed_text):
+        for t, char in enumerate(generated_text):
             sampled[0, t, char_indices[char]] = 1.
         preds = model.predict(sampled, verbose = 0)[0]
         next_index = sample(preds, temperature)

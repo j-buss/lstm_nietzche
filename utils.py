@@ -9,6 +9,7 @@ import time
 import csv
 import os
 import logging
+import re
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -34,6 +35,9 @@ class Nietzche_Data():
           'nietzsche.txt',
           origin='https://s3.amazonaws.com/text-datasets/nietzsche.txt')
       text = open(path).read().lower()
+      #Adding in the following 2 lines to clean up the text and make it more uniform
+      text = text.replace('\n', ' ')
+      text = re.sub("[^a-zA-Z ]+", "", text)
       return text
 
     def get_chars(self):
